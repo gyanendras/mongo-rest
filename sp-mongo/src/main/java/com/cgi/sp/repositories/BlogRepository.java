@@ -8,5 +8,6 @@ import com.cgi.sp.domain.Employee;
 
 public interface BlogRepository extends MongoRepository<Blog, Integer>{
 	 Iterable<Blog> findByAuthorName(String authorName);
+	 void deleteByBlogTitle(String blogTitle);	
 
 }

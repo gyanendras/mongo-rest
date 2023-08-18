@@ -23,6 +23,12 @@ public class BlogService implements IBlogService {
 		// TODO Auto-generated method stub
 		return br.findById(id).get();
 	}
+	
+	@Override
+	public void delete(String str) {
+		br.deleteByBlogTitle(str);
+
+	}
 
 	@Override
 	public void delete(int id) {

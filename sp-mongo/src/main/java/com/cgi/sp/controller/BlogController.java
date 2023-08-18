@@ -33,6 +33,12 @@ public class BlogController {
 		bs.delete(id);
 	}
 	
+	@DeleteMapping("/blog/title/{title}")
+	void delBlog(@PathVariable String title) {
+		bs.delete(title);
+	}
+	
+	
 	@GetMapping("/blogs")
 	Iterable<Blog> getAll(){
 		return bs.getAll();

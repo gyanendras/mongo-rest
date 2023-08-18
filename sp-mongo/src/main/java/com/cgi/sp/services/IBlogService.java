@@ -9,4 +9,5 @@ public interface IBlogService {
 	void delete(int id);
 	Iterable<Blog> getAll();
 	Iterable<Blog> getbyAuthor(String name);
+	void delete(String str);
 }
