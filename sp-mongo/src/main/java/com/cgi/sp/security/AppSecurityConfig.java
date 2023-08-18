@@ -10,12 +10,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class AppSecurityConfig  {
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-       http
-        .authorizeHttpRequests((authorizeHttpRequests) ->
-        authorizeHttpRequests
-        .requestMatchers("/**")
-        .denyAll()
-);
+       http.
+       authorizeHttpRequests((authz) -> authz
+               .anyRequest().authenticated()
+    		   )
+       
+        .apply(MyCustomDsl.customDsl())
+        ;
+        
+        
+        
+
             
             
            
