@@ -40,7 +40,7 @@ public class BlogController {
 	}
 	
 	
-	//@PreFilter("ROLE_READ")
+	@PreFilter("ROLE_READ")
 	@GetMapping("/blogs")
 	Iterable<Blog> getAll(){
 		return bs.getAll();
