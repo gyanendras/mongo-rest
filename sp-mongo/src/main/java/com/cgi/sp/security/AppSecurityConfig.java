@@ -13,7 +13,7 @@ public class AppSecurityConfig  {
        http.
        authorizeHttpRequests((authz) -> authz
                .anyRequest().authenticated()
-    		   )
+    		   ) // some urls can be exempted
        
         .apply(MyCustomDsl.customDsl())
         ;
