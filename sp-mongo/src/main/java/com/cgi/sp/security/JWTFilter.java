@@ -40,7 +40,7 @@ public class JWTFilter  extends BasicAuthenticationFilter {
             String jwt = this.resolveToken(httpServletRequest);
             
             System.out.println("Inside JWT Filter checking for "+ jwt);
-            if (true /*StringUtils.hasText(jwt)*/) {
+            if (StringUtils.hasText(jwt)) {
                
                     Authentication authentication = getAuthentication(httpServletRequest);;
                     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -72,26 +72,35 @@ public class JWTFilter  extends BasicAuthenticationFilter {
     
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader("Authorization");
-		/*
+		
 		if (token != null) {
 // parse the token. 
 			Jws<Claims> jws;
 			try {
-				jws = Jwts.parser().setSigningKey("ABC123").parseClaimsJws(token.replace("Bearer ", ""));
+				jws = Jwts.parser().setSigningKey("QUJDMTIz").parseClaimsJws(token.replace("Bearer ", ""));
 				String user = jws.getBody().getSubject();
+				ArrayList<String> arrStr = jws.getBody().get("Roles", ArrayList.class);
 				
-				ArrayList<SimpleGrantedAuthority> arr = new ArrayList<>();
-				arr.add(new SimpleGrantedAuthority("ROLE_USER"));
+				ArrayList<SimpleGrantedAuthority> arr = new ArrayList<SimpleGrantedAuthority>();
+				
+				for(String role:arrStr) {
+				SimpleGrantedAuthority sr1 = new SimpleGrantedAuthority(role);
+				arr.add(sr1);
+				}
+				
+				
+				//arr.add(new SimpleGrantedAuthority("ROLE_USER"));
 				if (user != null) {
 					return new UsernamePasswordAuthenticationToken(user, null,arr );
 				}
 			} catch (JwtException ex) {
+				ex.printStackTrace();
 				return null;
 			}
 			return null;
-		}*/
-		//return null;
-		 return new UsernamePasswordAuthenticationToken("user", null,new ArrayList<>() );
+		}
+		return null;
+		// return new UsernamePasswordAuthenticationToken("user", null,new ArrayList<>() );
 	}
 
 	
