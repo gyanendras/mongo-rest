@@ -1,6 +1,7 @@
 package com.cgi.sp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +40,7 @@ public class BlogController {
 	}
 	
 	
+	//@PreFilter("ROLE_READ")
 	@GetMapping("/blogs")
 	Iterable<Blog> getAll(){
 		return bs.getAll();
