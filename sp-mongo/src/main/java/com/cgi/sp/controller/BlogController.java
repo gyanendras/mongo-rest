@@ -1,6 +1,7 @@
 package com.cgi.sp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cgi.sp.domain.Blog;
 import com.cgi.sp.services.BlogService;
+import com.cgi.sp.services.IBlogService;
 
 @RestController
 public class BlogController {
 	@Autowired
-	BlogService bs;
+	IBlogService bs;
 	
+	/**
+	 * Return all blogs
+	 * @param blog
+	 * @return
+	 */
 	@PostMapping("/blog")
 	Blog createBlog(@RequestBody Blog blog){
 		return bs.save(blog);
@@ -40,7 +47,7 @@ public class BlogController {
 	}
 	
 	
-	@PreFilter("ROLE_READ")
+	// @PreAuthorize("ROLE_READ")
 	@GetMapping("/blogs")
 	Iterable<Blog> getAll(){
 		return bs.getAll();

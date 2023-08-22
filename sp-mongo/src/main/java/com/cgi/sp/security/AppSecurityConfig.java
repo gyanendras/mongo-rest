@@ -19,7 +19,9 @@ public class AppSecurityConfig  {
         ;
         
         
-        
+       http.csrf((csrf) -> csrf
+               .ignoringRequestMatchers("/**")
+           );
 
             
             

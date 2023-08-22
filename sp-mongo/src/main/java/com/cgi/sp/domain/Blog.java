@@ -5,8 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 // @Entity(name="blogs")
+// @Document /* */
 public class Blog {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
