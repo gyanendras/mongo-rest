@@ -1,5 +1,6 @@
 package com.cgi.sp.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,6 +9,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class AppSecurityConfig  {
+	@Value("${pvtkey}")
+	public  String privatkey;
+	
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
        http.
@@ -15,7 +19,7 @@ public class AppSecurityConfig  {
                .anyRequest().authenticated()
     		   ) // some urls can be exempted
        
-        .apply(MyCustomDsl.customDsl())
+        .apply(MyCustomDsl.customDsl(privatkey))
         ;
         
         

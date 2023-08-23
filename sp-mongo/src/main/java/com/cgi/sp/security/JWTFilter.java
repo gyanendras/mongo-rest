@@ -2,6 +2,7 @@ package com.cgi.sp.security;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
@@ -14,17 +15,22 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.util.StringUtils;
 
-public class JWTFilter  extends BasicAuthenticationFilter {
 
+public class JWTFilter  extends BasicAuthenticationFilter {
+     String pvtKey=null;
 
     public JWTFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
@@ -77,7 +83,7 @@ public class JWTFilter  extends BasicAuthenticationFilter {
         // parse the token. 
 			Jws<Claims> jws;
 			try {
-				jws = Jwts.parser().setSigningKey("QUJDMTIz").parseClaimsJws(token.replace("Bearer ", ""));
+				jws = Jwts.parser().setSigningKey(pvtKey).parseClaimsJws(token.replace("Bearer ", ""));
 				String user = jws.getBody().getSubject();
 				ArrayList<String> arrStr = jws.getBody().get("Roles", ArrayList.class);
 				
@@ -101,6 +107,11 @@ public class JWTFilter  extends BasicAuthenticationFilter {
 		}
 		return null;
 		// return new UsernamePasswordAuthenticationToken("user", null,new ArrayList<>() );
+	}
+
+	public void setPvtKey(String privatkey) {
+		pvtKey = privatkey;
+		
 	}
 
 	
