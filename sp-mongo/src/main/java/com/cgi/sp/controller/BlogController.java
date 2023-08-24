@@ -33,6 +33,7 @@ public class BlogController {
 	
 	@GetMapping("/blog/{id}")
 	Blog getBlog(@PathVariable int id){
+		System.out.println("BLog Id is "+ id);
 		return bs.get(id);
 	}
 	
@@ -48,7 +49,7 @@ public class BlogController {
 	
 	
 	// @PreAuthorize("ROLE_READ")
-	@GetMapping("/blogs")
+	@GetMapping("/blog/all")
 	Iterable<Blog> getAll(){
 		return bs.getAll();
 	}
