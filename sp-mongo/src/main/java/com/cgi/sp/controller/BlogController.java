@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cgi.sp.SpMongoApplication;
 import com.cgi.sp.domain.Blog;
+import com.cgi.sp.domain.Employee;
 import com.cgi.sp.services.BlogService;
 import com.cgi.sp.services.IBlogService;
 
@@ -20,6 +22,9 @@ import com.cgi.sp.services.IBlogService;
 public class BlogController {
 	@Autowired
 	IBlogService bs;
+	
+	@Autowired
+	SpMongoApplication sma;
 	
 	/**
 	 * Return all blogs
@@ -48,9 +53,13 @@ public class BlogController {
 	}
 	
 	
-	// @PreAuthorize("ROLE_READ")
+	// @PreAuthorize("ROLE_READ") 
 	@GetMapping("/blog/all")
 	Iterable<Blog> getAll(){
+		Iterable<Employee> emp = sma.spc.getEmpsFromSPMS();
+		for(Employee e:emp) {
+			System.out.println(e.getFirstName()+" from SPmongo");
+		}
 		return bs.getAll();
 	}
 

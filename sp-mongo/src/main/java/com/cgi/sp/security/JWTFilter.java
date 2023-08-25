@@ -50,7 +50,7 @@ public class JWTFilter  extends BasicAuthenticationFilter {
                
                     Authentication authentication = getAuthentication(httpServletRequest);;
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                
+                    
             }
             filterChain.doFilter(servletRequest, servletResponse);
 
